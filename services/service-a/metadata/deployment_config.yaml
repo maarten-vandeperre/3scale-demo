@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: 3scale
+  name: 'service-a-v1'
+  annotations: {}
+  labels:
+    app: service-a
+
+    app.kubernetes.io/component: service-a
+    app.kubernetes.io/instance: service-a
+    app.kubernetes.io/name: service-a
+    app.kubernetes.io/part-of: service-a
+    app.openshift.io/runtime-namespace: 3scale
+spec:
+  selector:
+    matchLabels:
+      app: service-a
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: service-a
+        version: v1
+        app.kubernetes.io/component: service-a
+        app.kubernetes.io/name: service-a
+        deployment: service-a
+    spec:
+      containers:
+        - name: container
+          image: >-
+            quay.io/appdev_playground/3scale-demo:service-a-0.0.1
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      imagePullSecrets: []
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  paused: false

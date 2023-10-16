@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: 3scale
+  name: 'service-b'
+  annotations: {}
+  labels:
+    app: service-b
+
+    app.kubernetes.io/component: service-b
+    app.kubernetes.io/instance: service-b
+    app.kubernetes.io/name: service-b
+    app.kubernetes.io/part-of: service-b
+    app.openshift.io/runtime-namespace: 3scale
+spec:
+  selector:
+    matchLabels:
+      app: service-b
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: service-b
+        version: v1
+        app.kubernetes.io/component: service-b
+        app.kubernetes.io/name: service-b
+        deployment: service-b
+    spec:
+      containers:
+        - name: container
+          image: >-
+            quay.io/appdev_playground/3scale-demo:service-b-0.0.1
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      imagePullSecrets: []
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  paused: false
