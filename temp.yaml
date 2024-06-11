@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: maarten-persistent-volume
+spec:
+  capacity:
+    storage: 5Gi
+  nfs:
+    server: fsf-dal1001g-fz.adn.networklayer.com
+    path: /IBM02SEV1039729_26/data01/maarten-3scale-pvc-nfs-pvc-9f779e59-c6e3-441b-9306-007f65af0c82
+#  csi:
+#    driver: openshift-storage.rbd.csi.ceph.com
+#    volumeHandle: 0001-0011-openshift-storage-0000000000000017-2f28642c-53be-4fa2-a149-577912d2cfd4
+#    volumeAttributes:
+#      clusterID: openshift-storage
+#      imageFeatures: 'layering,deep-flatten,exclusive-lock,object-map,fast-diff'
+#      imageFormat: '2'
+#      imageName: ocp4-cluster-l9qcg-2f28642c-53be-4fa2-a149-577912d2cfd4
+#      journalPool: ocpv01-tenants
+#      pool: ocpv01-tenants
+#      storage.kubernetes.io/csiProvisionerIdentity: 1716219243192-93-openshift-storage.rbd.csi.ceph.com
+#      volumeNamePrefix: ocp4-cluster-l9qcg-
+#    nodeStageSecretRef:
+#      name: rook-csi-rbd-node
+#      namespace: openshift-storage
+#    controllerExpandSecretRef:
+#      name: rook-csi-rbd-provisioner
+#      namespace: openshift-storage
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ocs-external-storagecluster-ceph-rbd
+  volumeMode: Filesystem

@@ -9,6 +9,8 @@ import org.eclipse.microprofile.config.ConfigProvider
 import org.eclipse.microprofile.metrics.MetricUnits
 import org.eclipse.microprofile.metrics.annotation.Counted
 import org.eclipse.microprofile.metrics.annotation.Timed
+import org.eclipse.microprofile.openapi.annotations.Operation
+import org.eclipse.microprofile.openapi.annotations.tags.Tag
 
 @Path("/hello")
 class SampleResource {
@@ -22,6 +24,8 @@ class SampleResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Counted(name = "servcicea_svc:counter", description = "the get data implementation for service A")
     @Timed(name = "servicea:svc:timer", description = "the get data implementation for service A", unit = MetricUnits.MILLISECONDS)
+    @Operation(summary = "Hello method")
+    @Tag(name = "HELLO_API")
     fun getData(): Response {
         val bResult = try{
             serviceBHttpTemplate.jsonGet("/hello", emptyMap()){ listOf(it) }

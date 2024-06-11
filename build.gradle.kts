@@ -62,6 +62,7 @@ allprojects.filter { it.name != "platform" }.forEach { project ->
         implementation("io.quarkus:quarkus-smallrye-opentracing")
         implementation("io.quarkus:quarkus-kotlin")
         implementation("io.quarkus:quarkus-smallrye-metrics")
+        implementation("io.quarkus:quarkus-smallrye-openapi")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         implementation("io.quarkus:quarkus-arc")
         implementation("io.quarkus:quarkus-resteasy-reactive")
